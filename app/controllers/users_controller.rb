@@ -1,11 +1,16 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user,       only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
+  before_action :correct_user,   only: [:edit, :update, :destroy]
   
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page])
   end
   
   def show
+    @chats = []
+    @chats << @user.chats_initiated if @user.chats_initiated.any?
+    @chats << @user.chats_invited if @user.chats_invited.any?
   end
   
   def new
@@ -49,6 +54,11 @@ class UsersController < ApplicationController
     
     def set_user
       @user = User.find(params[:id])
+    end
+    
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
     end
   
 end

@@ -1,0 +1,14 @@
+<%= form_for @chat do |f| %>
+
+	<%= render 'shared/error_messages', object: f.object %>
+
+	<%= hidden_field_tag :user1, current_user.id %>
+
+	<%= label_tag :user2, "Select User:" %>
+	<%= select_tag :user2, options_from_collection_for_select(@users, "id", "name") %>
+	
+	<%= text_area_tag :content, @message.content %>
+	
+	<%= f.submit "Send" %>
+
+<% end %>

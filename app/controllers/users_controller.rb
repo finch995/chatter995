@@ -8,9 +8,12 @@ class UsersController < ApplicationController
   end
   
   def show
-    @chats = []
-    @chats << @user.chats_initiated if @user.chats_initiated.any?
-    @chats << @user.chats_invited if @user.chats_invited.any?
+    if @user.chats_initiated.any?
+      @chats = @user.chats_initiated  + @user.chats_invited if @user.chats_invited.any?
+    else
+      @chats = @user.chats_invited if @user.chats_invited.any?
+    end
+    @chats.sort_by!(&:updated_at).reverse!
   end
   
   def new

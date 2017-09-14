@@ -4,3 +4,13 @@
 </h1>
 
 <%= link_to "New chat", new_chat_url %>
+
+<% if @chats.any? %>
+  <% @chats.each do |c| %>
+    <p>
+      <%= link_to gravatar_for(c.user1, size: 20), user_path(c.user1) %>
+      <%= link_to gravatar_for(c.user2, size: 20), user_path(c.user2) %>
+      <%= link_to c.title, chat_path(c) %>
+    </p>
+  <% end %>
+<% end %>

@@ -7,6 +7,9 @@ class MessagesController < ApplicationController
 		@message.user_id = params[:user_id]
 		@message.chat_id = params[:chat_id]
 		if @message.save
+			chatupdated = Chat.find(params[:chat_id])
+			chatupdated.updated_at = DateTime.now
+			chatupdated.save
 			redirect_back(fallback_location: root_path)
 		else
 			flash[:danger] = "Message can't be empty!"

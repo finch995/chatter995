@@ -13,6 +13,7 @@
     <p>
       <%= link_to "Home", root_url %>
       <% if logged_in? %>
+        <%= link_to "Profile", current_user %>
         <%= link_to "Users", users_url %>
       <% end %>
     </p>
@@ -24,6 +25,7 @@
     <%= yield %>
     
     <% if logged_in? %>
+      <p>---------</p>
       <p>
         <%= link_to "Settings", edit_user_path(current_user) %>
       </p>

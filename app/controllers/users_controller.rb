@@ -10,10 +10,12 @@ class UsersController < ApplicationController
   def show
     if @user.chats_initiated.any?
       @chats = @user.chats_initiated  + @user.chats_invited if @user.chats_invited.any?
+    elsif @user.chats_invited.any?
+      @chats = @user.chats_invited
     else
-      @chats = @user.chats_invited if @user.chats_invited.any?
+      @chats = []
     end
-    @chats.sort_by!(&:updated_at).reverse!
+    @chats.sort_by!(&:updated_at).reverse! unless @chats.nil?
   end
   
   def new

@@ -54,7 +54,11 @@ Rails.application.configure do
   
   
   
+  #
+  #config.web_console.automount = true
+  #
   
-  config.web_console.automount = true
+  
+  
   
 end

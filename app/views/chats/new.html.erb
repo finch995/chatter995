@@ -7,7 +7,7 @@
 	<%= label_tag :user2, "Select User:" %>
 	<%= select_tag :user2, options_from_collection_for_select(@users, "id", "name") %>
 	
-	<%= text_area_tag :content, @message.content %>
+	<%= text_area_tag :content, nil, :required => true %>
 	
 	<%= f.submit "Send" %>
 

@@ -3,6 +3,7 @@ class ChatsController < ApplicationController
   
   def show
     @chat = Chat.find(params[:id])
+    @messages = @chat.messages
     @message = Message.new
   end
   
@@ -16,12 +17,20 @@ class ChatsController < ApplicationController
     @chat = Chat.new
     @chat.user1_id = params[:user1]
     @chat.user2_id = params[:user2]
+    if params[:user1] > params[:user2]
+      @chat.index = "#{params[:user1]}#{params[:user2]}".to_i
+    else
+      @chat.index = "#{params[:user2]}#{params[:user1]}".to_i
+    end
+    index = @chat.index
     if @chat.save
       @chat.messages.create!(content: params[:content], user_id: current_user.id)
       flash[:success] = "Chat created Successfully."
       redirect_to @chat
     else
-      render 'new'
+      @chat_existing = Chat.find_by(index: index)
+      @chat_existing.messages.create!(content: params[:content], user_id: current_user.id)
+      redirect_to @chat_existing
     end
   end
   

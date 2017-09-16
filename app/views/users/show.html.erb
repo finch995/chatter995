@@ -6,7 +6,7 @@
 <%= link_to "Send a message", new_chat_url %>
 
 <% if current_user?(@user) %>
-  <% if @chats.any? %>
+  <% if @chats.try(:any?) %>
     <% @chats.each do |c| %>
       <p>
         <%= link_to gravatar_for(c.user1, size: 20), user_path(c.user1) %>

@@ -8,15 +8,17 @@ class UsersController < ApplicationController
   end
   
   def show
+    $VisitedUser = params[:id]
     if current_user?(@user)
       if @user.chats_initiated.any?
-        @chats = @user.chats_initiated  + @user.chats_invited if @user.chats_invited.any?
+        @chats = @user.chats_initiated
+        @chats.merge(@user.chats_invited) if @user.chats_invited.any?
       elsif @user.chats_invited.any?
         @chats = @user.chats_invited
       else
-        @chats = nil
+        @chats = []
       end
-      @chats.sort_by!(&:updated_at).reverse! unless @chats.nil?
+      @chats = @chats.sort_by(&:updated_at).reverse! unless @chats.nil?
     end
   end
   

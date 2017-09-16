@@ -5,7 +5,7 @@
 	<%= hidden_field_tag :user1, current_user.id %>
 
 	<%= label_tag :user2, "Select User:" %>
-	<%= select_tag :user2, options_from_collection_for_select(@users, "id", "name") %>
+	<%= select_tag :user2, options_from_collection_for_select(@users, "id", "name", $VisitedUser) %>
 	
 	<%= text_area_tag :content, nil, :required => true %>
 	

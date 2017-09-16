@@ -1,4 +1,4 @@
 <p>
-	<%= gravatar_for(message.user, size: 20) %>
+	<%= link_to gravatar_for(message.user, size: 20), user_path(message.user) %>
 	<%= message.user.name %>: <%= message.content %>
 </p>

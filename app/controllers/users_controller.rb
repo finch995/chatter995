@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     if current_user?(@user)
       if @user.chats_initiated.any?
         @chats = @user.chats_initiated
-        @chats.merge(@user.chats_invited) if @user.chats_invited.any?
+        @chats += @user.chats_invited if @user.chats_invited.any?
       elsif @user.chats_invited.any?
         @chats = @user.chats_invited
       else

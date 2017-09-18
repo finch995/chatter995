@@ -18,17 +18,17 @@ class ChatsController < ApplicationController
     @chat.user1_id = params[:user1]
     @chat.user2_id = params[:user2]
     if params[:user1] > params[:user2]
-      @chat.index = "#{params[:user1]}#{params[:user2]}".to_i
+      @chat.index_str = "#{params[:user1]}-#{params[:user2]}"
     else
-      @chat.index = "#{params[:user2]}#{params[:user1]}".to_i
+      @chat.index_str = "#{params[:user2]}-#{params[:user1]}"
     end
-    index = @chat.index
+    @index = @chat.index_str
     if @chat.save
       @chat.messages.create!(content: params[:content], user_id: current_user.id)
       flash[:success] = "Chat created Successfully."
       redirect_to @chat
     else
-      @chat_existing = Chat.find_by(index: index)
+      @chat_existing = Chat.find_by(index_str: @index)
       @chat_existing.messages.create!(content: params[:content], user_id: current_user.id)
       redirect_to @chat_existing
     end

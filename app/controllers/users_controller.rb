@@ -18,9 +18,7 @@ class UsersController < ApplicationController
       else
         @chats = []
       end
-      #@duplicate_self_chat = @chats.find_by(user1_id: @user.id)
-      #@chats -= @duplicate_self_chat unless @duplicate_self_chat.nil?
-      @chats = @chats.uniq!.sort_by(&:updated_at).reverse! unless @chats.nil?
+      @chats = @chats.uniq.sort_by(&:updated_at).reverse unless @chats.blank?
     end
   end
   

@@ -18,9 +18,9 @@ class ChatsController < ApplicationController
     @chat.user1_id = params[:user1]
     @chat.user2_id = params[:user2]
     if params[:user1] > params[:user2]
-      @chat.index = "#{params[:user1]}#{params[:user2]}".to_i
+      @chat.index = "#{params[:user1]}#{params[:user2]}#{rand(0..100)}".to_i
     else
-      @chat.index = "#{params[:user2]}#{params[:user1]}".to_i
+      @chat.index = "#{params[:user2]}#{params[:user1]}#{rand(0..100)}".to_i
     end
     index = @chat.index
     if @chat.save
